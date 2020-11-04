@@ -1,9 +1,13 @@
-function index(req, res) {
-  res.send("Get employees")
+const Employee = require('../models/Employee')
+
+async function index(req, res) {
+  const employees = await Employee.find()
+  res.json(employees)
 }
 
 function store(req, res) {
-  res.send("Store employees")
+  console.log(req.body)
+  res.send('store employee')
 }
 
 function show(req, res) {

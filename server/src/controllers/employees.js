@@ -5,21 +5,25 @@ async function index(req, res) {
   res.json(employees)
 }
 
-function store(req, res) {
-  console.log(req.body)
-  res.send('store employee')
+async function store(req, res) {
+  const employee = new Employee(req.body)
+  await employee.save()
+  res.send({message: 'Employee created'})
 }
 
-function show(req, res) {
-
+async function show(req, res) {
+  const employee = await Employee.findById(req.params.id)
+  res.json(employee)
 }
 
-function update(req, res) {
-
+async function update(req, res) {
+  await Employee.findByIdAndUpdate(req.params.id, req.body)
+  res.json({status: 'Employee updated'})
 }
 
-function destroy(req, res) {
-
+async function destroy(req, res) {
+  await Employee.findByIdAndDelete(req.params.id)
+  res.json({status: 'Employee deleted'})
 }
 
 module.exports = {
